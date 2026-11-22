@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.db
+.venv/
+venv/
+.env
+.pytest_cache/
+node_modules/
+dist/
+.codebenders/
+onedesk/
+test-results/ 
