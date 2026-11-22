@@ -21,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 Base.metadata.create_all(bind=engine)
 ensure_schema(engine)
 
