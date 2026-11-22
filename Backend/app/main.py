@@ -12,11 +12,13 @@ from app.routes_finance import router as finance_router
 from app.schemas import UserCreate, UserRead
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-
-app = FastAPI(title="Backend API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origins=[
+        "https://bank-office-frontend.onrender.com",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
