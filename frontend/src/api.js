@@ -1,7 +1,13 @@
-export const API_BASE = "http://localhost:8000";
+
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.DEV
+    ? "http://localhost:8000"
+    : "https://bank-office-backend.onrender.com");
 
 async function request(path, options = {}) {
   const init = { method: options.method || "GET", headers: {} };
+
   if (options.body !== undefined) {
     init.headers["Content-Type"] = "application/json";
     init.body = JSON.stringify(options.body);
@@ -14,17 +20,17 @@ async function request(path, options = {}) {
     try {
       const data = await res.json();
       if (data && data.detail) {
-        message = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail);
+        message = typeof data.detail === "string"
+          ? data.detail
+          : JSON.stringify(data.detail);
       }
     } catch {
-      // response body was not JSON; keep the status-based message
+      // Keep the status-based message.
     }
     throw new Error(message);
   }
 
-  if (res.status === 204) {
-    return null;
-  }
+  if (res.status === 204) return null;
   return res.json();
 }
 
@@ -65,7 +71,10 @@ export function getSettings() {
 }
 
 export function updateSettings(display_currency) {
-  return request("/settings", { method: "PATCH", body: { display_currency } });
+  return request("/settings", {
+    method: "PATCH",
+    body: { display_currency }
+  });
 }
 
 export function getFxRates() {
