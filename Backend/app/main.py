@@ -1,3 +1,4 @@
+
 import pathlib
 import sys
 
@@ -12,6 +13,9 @@ from app.routes_finance import router as finance_router
 from app.schemas import UserCreate, UserRead
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
+
+app = FastAPI(title="Backend API")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -23,6 +27,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 Base.metadata.create_all(bind=engine)
 ensure_schema(engine)
 
